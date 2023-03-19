@@ -9,6 +9,13 @@ exports.getListOfUsers = async (ctx) => {
       attributes: {
         exclude: ["password"],
       },
+      // using the include and passing the model key inside the object inside
+      // the array to include the todos list created by the user
+      include: [
+        {
+          model: ctx.db.Todos,
+        },
+      ],
     });
     ctx.body = {
       data: users,
@@ -31,6 +38,13 @@ exports.getDetailsOfUserBasedOnId = async (ctx) => {
       attributes: {
         exclude: ["password"],
       },
+      // using the include and passing the model key inside the object inside
+      // the array to include the todos list created by the user
+      include: [
+        {
+          model: ctx.db.Todos,
+        },
+      ],
     });
 
     if (!userData) {
@@ -158,6 +172,7 @@ exports.updateDetailsOfUserBasedOnId = async (ctx) => {
 
     ctx.body = {
       message: `Details of user with id ${userId} updated successfully`,
+      data: ctx.request.body,
     };
   } catch (err) {
     ctx.throw(500, err);

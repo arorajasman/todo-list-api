@@ -3,14 +3,15 @@ const koaParser = require("koa-parser");
 
 const db = require("./models");
 const userRoutes = require("./routes/user_routes");
+const todosRoutes = require("./routes/todos_routes");
 
 const app = new Koa();
 
 // middlware for getting the body from the request made at the endpoints
 app.use(koaParser());
 
-// middleware to register user routes
 app.use(userRoutes.routes());
+app.use(todosRoutes.routes());
 
 // code for syncing the models to the db
 db.sequelize
